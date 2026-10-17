@@ -81,7 +81,7 @@ Frames are 320×240 in **RGB565** (5 bits red, 6 green, 5 blue). Rows are stored
 
 ### From prototype to live video
 
-We started with a software 3×3 Sobel on a static grayscale image in the [CPULATOR](https://cpulator.01xz.net/) RISC-V simulator (`prototype/cpulator_sobel.c`). `tools/image_convert.py` resizes any picture to 320×240 grayscale and turns it into a C array for the simulator. Once the filters worked there, we moved to the real board with a live camera. On the board, edge detection uses the video-in pipeline's edge-detect stage, toggled from SW0, while the other filters run in C on the RISC-V core (see [known issue 1](doc/KNOWN_ISSUES.md) for the software Sobel).
+We started with a software 3×3 Sobel on a static grayscale image in the [CPULATOR](https://cpulator.01xz.net/) RISC-V simulator (`prototype/cpulator_sobel.c`). `tools/image_convert.py` resizes any picture to 320×240 grayscale and turns it into a C array for the simulator. Once the filters worked there, we moved to the real board with a live camera. On the board, edge detection uses the video-in pipeline's edge-detect stage, toggled from SW0, while the other filters run in C on the RISC-V core.
 
 The original plan is in [doc/proposal_block_diagram.png](doc/proposal_block_diagram.png).
 
@@ -112,7 +112,7 @@ make gallery        # needs gcc and Python 3 with Pillow
 ├── tests/ps2_keyboard/  Shows each key's make code on the HEX displays
 ├── tools/               Image to C-array converter
 ├── host/                PC build of the filters and gallery generator
-└── doc/                 Diagrams, gallery, known issues
+└── doc/                 Diagrams and filter gallery
 ```
 
 ## Build and run
@@ -128,10 +128,6 @@ make GDB_CLIENT   # in another, to load main.elf onto the RISC-V core and run it
 ```
 
 Set `INSTALL` at the top of `src/Makefile` to your Intel FPGA install path.
-
-## Known issues
-
-Four known issues, each with its cause, are listed in [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). For example, the duotone palette scales green as a 5-bit field although RGB565 green is 6 bits, so the cream highlight renders pink.
 
 ## Credits and license
 
