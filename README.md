@@ -9,29 +9,9 @@ Everything runs on the board. A Nios V (RV32IM) RISC-V soft core is instantiated
 ![Board](https://img.shields.io/badge/board-DE1--SoC-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-## Demo
-
-<!--
-  DEMO SLOTS: drop the files into doc/media/ (names listed in doc/media/README.md),
-  then uncomment the blocks below.
-
-<p align="center">
-  <img src="doc/media/demo.gif" alt="Live filters running on the DE1-SoC" width="720">
-</p>
-<p align="center"><a href="doc/media/demo.mp4">Full demo video</a></p>
-
-| Board setup | Live: kaleidoscope | Live: duotone dither |
-|:---:|:---:|:---:|
-| <img src="doc/media/board_setup.jpg" width="260"> | <img src="doc/media/live_kaleidoscope.jpg" width="260"> | <img src="doc/media/live_dither.jpg" width="260"> |
-| **Live: ASCII art** | **Live: hardware edge detect (SW0)** | **Live: glitch** |
-| <img src="doc/media/live_ascii.jpg" width="260"> | <img src="doc/media/live_edge.jpg" width="260"> | <img src="doc/media/live_glitch.jpg" width="260"> |
--->
-
-Demo video and photos of the board running live are being added to [doc/media](doc/media).
-
 ## Filters
 
-Every filter below runs live on the board's RISC-V core. The images here are the same filter code from `src/`, run on a test scene with the [host preview](#host-preview) so each effect is easy to compare:
+Every filter below runs live on the board's RISC-V core. The images here are the same filter code from `src/`, run on a test scene with the [host preview](#host-preview):
 
 | Input | 1 · Mirror | 2 · Invert |
 |:---:|:---:|:---:|
@@ -109,7 +89,7 @@ The original plan is in [doc/proposal_block_diagram.png](doc/proposal_block_diag
 
 ## Host preview
 
-`host/` builds the filter code from `src/` unchanged for a PC, runs every filter on a test scene, and writes the images in the gallery above. It's useful for trying a filter without the board.
+`host/` builds the filter code from `src/` unchanged for a PC, runs every filter on a test scene, and writes the images in the gallery above, so filters can be tested without the board.
 
 ```
 cd host
@@ -133,7 +113,6 @@ make gallery        # needs gcc and Python 3 with Pillow
 ├── tools/               Image to C-array converter
 ├── host/                PC build of the filters and gallery generator
 └── doc/                 Diagrams, gallery, known issues
-    └── media/               Board photos and demo video
 ```
 
 ## Build and run
@@ -152,7 +131,7 @@ Set `INSTALL` at the top of `src/Makefile` to your Intel FPGA install path.
 
 ## Known issues
 
-Five bugs found while writing this up, with fixes: [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). The most interesting one is that the duotone colours treat green as a 5-bit field when RGB565 green is 6 bits, which is why the "cream" highlight in the gallery is pink.
+Five known bugs, each with its cause and fix, are listed in [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). For example, the duotone palette scales green as a 5-bit field although RGB565 green is 6 bits, so the cream highlight renders pink.
 
 ## Credits and license
 

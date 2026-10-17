@@ -2,7 +2,7 @@
 
 [← README](../README.md)
 
-Found while documenting the project. None of them stop the demo from running, but each is worth fixing.
+None of these stop the system from running. Each entry lists the cause and a fix.
 
 ### 1. The software Sobel is not in the live path
 Live edge detection (SW0) uses the DE1-SoC Computer's hardware edge-detect stage in the video-in pipeline. `sobelImage()` in `src/filters.c` is never called, and it convolves raw RGB565 words instead of a luminance value, so on colour frames it would mix the red, green and blue fields together. The software Sobel was only validated on 8-bit grayscale, in the CPULATOR prototype.
@@ -13,7 +13,7 @@ Live edge detection (SW0) uses the DE1-SoC Computer's hardware edge-detect stage
 **Fix:** point `VID_BUFFER_B` at a second 320×240 region.
 
 ### 3. Duotone highlight renders pink instead of cream
-`dither.h` picks the duotone colours as if green were 5 bits, but RGB565 green is 6 bits. The "cream" highlight `(28, 26, 18)` comes out as roughly `(224, 104, 144)`, which is pink. The dark tone has the same scaling error. You can see it in the gallery.
+`dither.h` picks the duotone colours as if green were 5 bits, but RGB565 green is 6 bits. The "cream" highlight `(28, 26, 18)` comes out as roughly `(224, 104, 144)`, which is pink. The dark tone has the same scaling error. The effect is visible in the gallery.
 **Fix:** double the green values (`LITE_G 52`, `DARK_G 16`).
 
 ### 4. Filters called without prototypes
@@ -26,4 +26,4 @@ Live edge detection (SW0) uses the DE1-SoC Computer's hardware edge-detect stage
 
 ### Minor
 - The CPULATOR prototype declares its output as `unsigned char* imageOutput[...]` (an array of pointers) instead of `unsigned char imageOutput[...]`. It works, but uses four times the memory.
-- The glitch filter writes 8-bit luminance straight into a 16-bit RGB565 word, so brightness lands in the blue and low green bits. That's where its false-colour look comes from; it's kept as an effect.
+- The glitch filter writes 8-bit luminance straight into a 16-bit RGB565 word, so brightness lands in the blue and low green bits. This produces the filter's false-colour look and is kept intentionally.
