@@ -1,0 +1,14 @@
+# RISC-V build outputs
+*.o
+*.elf
+*.objdump
+*.map
+
+# Host preview build
+host/build/
+host/preview
+host/test_scene.ppm
+host/test_scene.png
+
+# Editor
+.vscode/
