@@ -131,7 +131,7 @@ Set `INSTALL` at the top of `src/Makefile` to your Intel FPGA install path.
 
 ## Known issues
 
-Five known bugs, each with its cause and fix, are listed in [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). For example, the duotone palette scales green as a 5-bit field although RGB565 green is 6 bits, so the cream highlight renders pink.
+Four known issues, each with its cause and fix, are listed in [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). For example, the duotone palette scales green as a 5-bit field although RGB565 green is 6 bits, so the cream highlight renders pink.
 
 ## Credits and license
 
