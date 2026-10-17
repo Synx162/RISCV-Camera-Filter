@@ -30,7 +30,7 @@ Every filter below runs live on the board's RISC-V core. The images here are the
 | Duotone dither | Luminance → contrast stretch → LCG noise → **4×4 Bayer ordered dither** → two-colour palette |
 | ASCII art | Averages each 4×8 cell, maps brightness onto an 8-step character ramp (`.:-=+#@`), and stamps the glyph in the cell's average colour |
 | Glitch | Writes 8-bit luminance straight into a 16-bit pixel, so brightness spills into the blue and green fields |
-| Edge detection | SW0 turns on the edge-detect stage in the board's video-in pipeline; the 3×3 Sobel was first prototyped in software in CPULATOR |
+| Edge detection | SW0 turns on the hardware edge-detect stage in the board's video-in pipeline. The filters read the frame after this stage, so they stack on top of edge detection. The 3×3 Sobel was first prototyped in software in CPULATOR |
 
 ## Controls
 
@@ -131,7 +131,7 @@ Set `INSTALL` at the top of `src/Makefile` to your Intel FPGA install path.
 
 ## Known issues
 
-Four known issues, each with its cause and fix, are listed in [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). For example, the duotone palette scales green as a 5-bit field although RGB565 green is 6 bits, so the cream highlight renders pink.
+Four known issues, each with its cause, are listed in [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). For example, the duotone palette scales green as a 5-bit field although RGB565 green is 6 bits, so the cream highlight renders pink.
 
 ## Credits and license
 
